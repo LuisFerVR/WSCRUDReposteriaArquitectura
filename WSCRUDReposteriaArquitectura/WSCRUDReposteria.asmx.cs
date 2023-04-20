@@ -223,5 +223,73 @@ namespace WSCRUDReposteriaArquitectura
             }
 
         }
+        
+        [WebMethod]
+        public string insertProveedores(string nombre, string tel, string loc, string calle, int cp)
+        {
+            try
+            {
+                string sql;
+                SqlDataReader reader;
+                SqlConnection conexion = new SqlConnection(Get_ConnectionString());
+                conexion.Open();
+                sql = "INSERT INTO [dbo].[provedor] ([nombre],[telefono],[localidad],[calle],[codigoPostal]) VALUES('" +nombre + "', '" + tel + "', '" + loc + "','" + calle + "'," + cp + ")";
+                SqlCommand mycmd = new SqlCommand(sql, conexion);
+                mycmd.ExecuteNonQuery();
+                conexion.Close();
+                return "Registro insertado con éxito";
+            }
+            catch (Exception ex)
+            {
+                return ex.ToString();
+            }
+
+        }
+
+
+        [WebMethod]
+        public string updateProveedores(int id,string nombre, string tel, string loc, string calle, int cp)
+        {
+            try
+            {
+                string sql;
+                SqlDataReader reader;
+                SqlConnection conexion = new SqlConnection(Get_ConnectionString());
+                conexion.Open();
+                sql = "UPDATE [dbo].[provedor]SET [nombre] = '" + nombre + "',[telefono] = '" + tel + "',[localidad] = '" + loc + "',[calle] = '" + calle + "',[codigoPostal] = " + cp + " WHERE [idProveedor]=" + id + "";
+                SqlCommand mycmd = new SqlCommand(sql, conexion);
+                mycmd.ExecuteNonQuery();
+                conexion.Close();
+                return "Registro modificado con éxito";
+            }
+            catch (Exception ex)
+            {
+                return ex.ToString();
+            }
+
+        }
+
+
+        [WebMethod]
+        public string deleteProveedores(int id)
+        {
+            try
+            {
+                string sql;
+                SqlDataReader reader;
+                SqlConnection conexion = new SqlConnection(Get_ConnectionString());
+                conexion.Open();
+                sql = "DELETE FROM [dbo].[provedor] WHERE [idProveedor]=" + id + "";
+                SqlCommand mycmd = new SqlCommand(sql, conexion);
+                mycmd.ExecuteNonQuery();
+                conexion.Close();
+                return "Registro eliminado con éxito";
+            }
+            catch (Exception ex)
+            {
+                return ex.ToString();
+            }
+
+        }
     }
 }
