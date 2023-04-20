@@ -90,7 +90,26 @@ namespace WSCRUDReposteriaArquitectura
 
         }
 
-        
+        [WebMethod]
+        public string InsertInsumo(String nombre, int cantidad, float monto)
+        {
+            try
+            {
+                string sql;
+                SqlDataReader reader;
+                SqlConnection conexion = new SqlConnection(Get_ConnectionString());
+                conexion.Open();
+                sql = "INSERT INTO [dbo].[insumo] ([nombre],[cantidad],[monto]) VALUES ('" + nombre + "'," + cantidad + "," + monto + ")";
+                SqlCommand mycmd = new SqlCommand(sql, conexion);
+                mycmd.ExecuteNonQuery();
+                conexion.Close();
+                return "Insercciòn de insumo completada";
+            }
+            catch (Exception ex)
+            {
+                return ex.ToString();
+            }
+        }
 
         [WebMethod]
         public string updateInsumo(int idinsumo, String nombre, int cantidad, float monto)
